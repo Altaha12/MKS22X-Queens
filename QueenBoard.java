@@ -66,20 +66,12 @@ public void print(){
 
 }
 public static void main(String[] args) {
-	for(int i=1;i<20;i++){
-    QueenBoard f = new QueenBoard(i);
-    f.addQueen(0,0);
-    System.out.println("A Board of Size " +i);
-    System.out.println();
-    System.out.print(f);
-    System.out.println();
-    f.addQueen(i-1,i-1);
-    System.out.print(f);
-    System.out.println();
-    f.removeQueen(0,0);
-    f.removeQueen(i-1,i-1);
-    System.out.print(f);
-  }
+  QueenBoard f = new QueenBoard(8);
+  f.addQueen(0,0);
+  f.solve();
+	/*for(int i=1;i<20;i++){
+    QueenBoard f = new QueenBoard(i);}*/
+
   }
   public String toString(){
     String r="";
@@ -91,6 +83,18 @@ public static void main(String[] args) {
       r+="\n";
     }
     return r;
+  }
+  public boolean solve() throws IllegalStateException{
+    for(int i=0;i<board.length;i++){
+      for(int j=0;j<board[0].length;j++){
+        if(board[i][j]!=0){ throw new IllegalStateException(); }
+      }
+    }
+    return actualSolve(0);
+  }
+  private boolean actualSolve(int queens){
+
+   return false;
   }
 
 }
