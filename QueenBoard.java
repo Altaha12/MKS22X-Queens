@@ -1,8 +1,10 @@
 import java.util.Arrays;
 public class QueenBoard {
   private int[][]board;
+  private static int n;
   public QueenBoard(int size){
 	board=new int[size][size];
+  n=size*5;
 	for(int i=0;i<board.length;i++){
   	for(int j=0;j<board[0].length;j++){
     	board[i][j]=0;
@@ -13,7 +15,7 @@ public class QueenBoard {
 public static void printArray(int[]ary)/*0a*/{
   String r = "";
   for(int i=0;i<ary.length;i++){
-	if(ary[i]==-1)r+="Q";
+	if(ary[i]==n)r+="Q";
 	else
 	r+=ary[i];
 	if(!(ary.length-i==1))r+="  ";
@@ -30,7 +32,7 @@ public static void printArray(int[][]ary)/*0b*/{
 }
 // i is r j is c
 private boolean addQueen(int r,int c){
-  board[r][c]=-1;
+  board[r][c]=n;
   for(int i=0;i<board.length;i++){
 	for(int j=c+1;j<board[0].length;j++){
   	if(i==r)board[i][j]+=1;
@@ -63,8 +65,32 @@ public void print(){
   printArray(this.board);
 
 }
-  public static void main(String[] args) {
-	QueenBoard f =new QueenBoard(8);
-	f.print();
+public static void main(String[] args) {
+	for(int i=1;i<20;i++){
+    QueenBoard f = new QueenBoard(i);
+    f.addQueen(0,0);
+    System.out.println("A Board of Size " +i);
+    System.out.println();
+    System.out.print(f);
+    System.out.println();
+    f.addQueen(i-1,i-1);
+    System.out.print(f);
+    System.out.println();
+    f.removeQueen(0,0);
+    f.removeQueen(i-1,i-1);
+    System.out.print(f);
   }
+  }
+  public String toString(){
+    String r="";
+    for(int row=0;row<board.length;row++){
+      for(int col=0;col<board[row].length;col++){
+        if(board[row][col]==n)r+="Q ";
+        else r+="_ ";
+      }
+      r+="\n";
+    }
+    return r;
+  }
+
 }
