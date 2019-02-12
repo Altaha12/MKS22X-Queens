@@ -65,15 +65,10 @@ public void print(){
   printArray(this.board);
 
 }
-public static void main(String[] args) {
-
-	for(int i=1;i<20;i++){
+  public static void main(String[] args) {
+	for(int i=0;i<16;i++){
     QueenBoard f = new QueenBoard(i);
-    if(f.solve())System.out.println("A Board of size "+i+" by "+i+" has a Solution!" );
-    else System.out.println("A Board of size "+i+" by "+i+" does Not have a Solution!" );
-    System.out.print(f);
-  }
-
+    System.out.println("A Board of Size " +i+ " has "+ f.countSolutions()+ " solutions" );}
   }
   public String toString(){
     String r="";
@@ -95,16 +90,42 @@ public static void main(String[] args) {
     return actualSolve(0);
   }
   private boolean actualSolve(int queens){
-    if(queens==board.length)return true;
+   if(queens==board.length)return true;
+   for(int row=0;row<board.length;row++){
+     if(board[row][queens]==0){
+       addQueen(row,queens);
+       if(actualSolve(queens+1)==true){return true;}
+       else removeQueen(row,queens);
+     }
+     else if(row==board.length-1)return false;
+   }
+   return false;
+  }
+  private int actualcountSolutions(int queens){
+    int count=0;
+    if(queens==board.length)return 1;
     for(int row=0;row<board.length;row++){
       if(board[row][queens]==0){
         addQueen(row,queens);
-        if(actualSolve(queens+1)==true){return true;}
-        else removeQueen(row,queens);
+        count+=actualcountSolutions(queens+1);
+        removeQueen(row,queens);
       }
-      else if(row==board.length-1)return false;
+      else if(row==board.length-1)return count;
     }
-   return false;
+    return count;
   }
-
+  public int countSolutions() throws IllegalStateException{
+    for(int i=0;i<board.length;i++){
+      for(int j=0;j<board[0].length;j++){
+        if(board[i][j]!=0){ throw new IllegalStateException(); }
+      }
+    }
+    int s=actualcountSolutions(0);
+    for(int i=0;i<board.length;i++){
+      for(int j=0;j<board[0].length;j++){
+        board[i][j]=0;
+      }
+    }
+    return s;
+  }
 }
