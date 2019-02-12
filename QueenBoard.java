@@ -4,7 +4,7 @@ public class QueenBoard {
   private static int n;
   public QueenBoard(int size){
 	board=new int[size][size];
-  n=size*5;
+  n=size*4;
 	for(int i=0;i<board.length;i++){
   	for(int j=0;j<board[0].length;j++){
     	board[i][j]=0;
@@ -68,7 +68,8 @@ public void print(){
   public static void main(String[] args) {
 	for(int i=0;i<16;i++){
     QueenBoard f = new QueenBoard(i);
-    System.out.println("A Board of Size " +i+ " has "+ f.countSolutions()+ " solutions" );}
+    System.out.println("A Board of Size " +i+ " has "+ f.countSolutions()+ " solutions" );
+  System.out.print(f);}
   }
   public String toString(){
     String r="";
